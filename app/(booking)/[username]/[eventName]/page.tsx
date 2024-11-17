@@ -11,7 +11,7 @@ import SubmitButton from '@/app/components/SubmitButton';
 import { CreateMeetingAction } from '@/app/actions';
 import RenderCalendar from '@/app/components/BookingForm/RenderCalendar';
 import TimeSlots from '@/app/components/BookingForm/TimeSlots';
-
+import { PageProps } from 'next';
 
 async function getData(username: string, eventName: string) {
     const event = await prisma.eventType.findFirst({
@@ -50,24 +50,26 @@ async function getData(username: string, eventName: string) {
 
     return event;
 }
-const BookingPage = async ({ 
-    params, 
-    searchParams 
-}: { 
-    params: { username: string, eventName: string }, 
-    searchParams: { date?: string, time?: string } 
-}) => {
 
-    const selectedDate = searchParams.date ? new Date(searchParams.date) : new Date();
-    const eventType = await getData(params.username, params.eventName);
+export default async function BookingPage({
+  params,
+  searchParams,
+}: {
+  params: { username: string; eventName: string };
+  searchParams: { date?: string; time?: string };
+}) {
+  const { username, eventName } = params;
 
-    const formattedDate = new Intl.DateTimeFormat('en-US', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-    }).format(selectedDate);
+  const selectedDate = searchParams.date ? new Date(searchParams.date) : new Date();
+  const eventType = await getData(username, eventName);
 
-    const showForm = !!searchParams.date && !!searchParams.time;
+  const formattedDate = new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  }).format(selectedDate);
+
+  const showForm = !!searchParams.date && !!searchParams.time;
 
   return (
     <div className="min-h-screen w-screen flex items-center justify-center">
@@ -119,7 +121,7 @@ const BookingPage = async ({
 
                 <form className="flex flex-col gap-y-4" action={CreateMeetingAction}>
                     <input type="hidden" name="eventTypeId" value={eventType.id} />
-                    <input type="hidden" name="username" value={params.username} />
+                    <input type="hidden" name="username" value={username} />
                     <input type="hidden" name="fromTime" value={searchParams.time} />
                     <input type="hidden" name="eventDate" value={searchParams.date} />
                     <input
@@ -197,7 +199,7 @@ const BookingPage = async ({
 
             <TimeSlots 
                 selectedDate={selectedDate}
-                userName={params.username}
+                userName={username}
                 meetingDuration={eventType.duration}
             />
           </CardContent>
@@ -206,5 +208,3 @@ const BookingPage = async ({
     </div>
   )
 }
-
-export default BookingPage

@@ -8,7 +8,6 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { nylas } from "./lib/nylas";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function OnboardingAction(prevState: any, formData: FormData) {
     const session = await requireUser();
 
@@ -86,7 +85,6 @@ export async function OnboardingAction(prevState: any, formData: FormData) {
 
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function SettingsAction(prevState: any, formData: FormData) {
     const session = await requireUser();
 

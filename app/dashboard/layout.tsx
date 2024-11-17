@@ -50,7 +50,6 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
       return redirect("/");
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const data = await getData(session.user.id as string);
 
   return (
