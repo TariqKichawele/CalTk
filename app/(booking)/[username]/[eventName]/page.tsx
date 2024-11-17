@@ -11,7 +11,6 @@ import SubmitButton from '@/app/components/SubmitButton';
 import { CreateMeetingAction } from '@/app/actions';
 import RenderCalendar from '@/app/components/BookingForm/RenderCalendar';
 import TimeSlots from '@/app/components/BookingForm/TimeSlots';
-import { PageProps } from 'next';
 
 async function getData(username: string, eventName: string) {
     const event = await prisma.eventType.findFirst({
