@@ -140,10 +140,10 @@ export async function updateAvailability(formData: FormData) {
         );
 
         revalidatePath("/dashboard/availability");
-        return { status: "success", message: "Availability updated successfully" };
+        return;
     } catch (error) {
         console.error(error, "Error updating availability");
-        return { status: "error", message: "Error updating availability" };
+        return;
     }
 }
 

@@ -15,7 +15,7 @@ const CalendarCell = ({
     currentMonth: CalendarDate;
     isUnavailable: boolean;
 }) => {
-    const ref = useRef<HTMLButtonElement>(null);
+    const ref = useRef<HTMLDivElement>(null);
     const {cellProps, buttonProps, isSelected, isDisabled, formattedDate } = useCalendarCell({date}, state, ref);
 
     const finalIsDisabled = isUnavailable || isDisabled;
