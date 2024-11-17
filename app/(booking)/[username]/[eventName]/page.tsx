@@ -51,14 +51,17 @@ async function getData(username: string, eventName: string) {
     return event;
 }
 
+type tParams = Promise<{ username: string; eventName: string }>
+
+
 export default async function BookingPage({
   params,
   searchParams,
 }: {
-  params: { username: string; eventName: string };
+  params: tParams;
   searchParams: { date?: string; time?: string };
 }) {
-  const { username, eventName } = params;
+  const { username, eventName } = await params;
 
   const selectedDate = searchParams.date ? new Date(searchParams.date) : new Date();
   const eventType = await getData(username, eventName);
