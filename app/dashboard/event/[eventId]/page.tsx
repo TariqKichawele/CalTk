@@ -25,19 +25,20 @@ async function getData(eventId: string) {
     return data;
 }
 
-const Event = async ({ params }: { params: { eventId: string }}) => {
+const Event = async (props: { params: Promise<{ eventId: string }>}) => {
+    const params = await props.params;
     const data = await getData(params.eventId);
-  return (
-    <EditEventForm
-      description={data.description}
-      duration={data.duration}
-      title={data.title}
-      url={data.url}
-      key={data.id}
-      id={data.id}
-      callProvider={data.videoCallSoftware}
-    />
-  )
+    return (
+      <EditEventForm
+        description={data.description}
+        duration={data.duration}
+        title={data.title}
+        url={data.url}
+        key={data.id}
+        id={data.id}
+        callProvider={data.videoCallSoftware}
+      />
+    )
 }
 
 export default Event

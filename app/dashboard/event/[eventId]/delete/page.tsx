@@ -4,7 +4,8 @@ import Link from 'next/link'
 import React from 'react'
 import { DeleteEventAction } from '@/app/actions'
 
-const DeleteEvent = ({ params }: { params: { eventId: string }}) => {
+const DeleteEvent = async (props: { params: Promise<{ eventId: string }>}) => {
+  const params = await props.params;
   return (
     <div className="flex-1 flex items-center justify-center">
       <Card>
